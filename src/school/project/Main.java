@@ -13,6 +13,7 @@ public class Main extends JFrame {
     DefaultMutableTreeNode root;
     JTree tree;
     JTable table;
+
     public Main() throws HeadlessException {
         mainFrame = new StartWindow();
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -46,6 +47,12 @@ public class Main extends JFrame {
         rr.add(rrr1);
         tree = new JTree(root);
 
+        JTabbedPane tabbed = new JTabbedPane();
+        JPanel first = new JPanel();
+        JPanel second = new JPanel();
+        tabbed.add("first",first);
+        tabbed.add("second",second);
+
 
         //JSplitPane 설정
         splitPane.setContinuousLayout(true); //연속적인 레이아웃 기능 활성화
@@ -59,7 +66,7 @@ public class Main extends JFrame {
         //JSplitPane 설정
         splitPane2.setContinuousLayout(true); //연속적인 레이아웃 기능 활성화
         splitPane2.setTopComponent(scrollPane);
-        splitPane2.setBottomComponent(label3); //우측 컴포넌트 장착
+        splitPane2.setBottomComponent(tabbed); //우측 컴포넌트 장착
         splitPane2.setDividerLocation((int)mainFrame.getSize().getWidth()/2); //디바이더(분리대) 위치 설정
         splitPane2.setDividerSize(5); //디바이더(분리대) 굵기 설정
 

@@ -1,10 +1,13 @@
 package school.project.UI;
 
 import javax.swing.*;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.io.File;
 import java.io.FileFilter;
+import java.util.regex.Matcher;
 
 /**
  * Created by forhack on 2016-05-23.
@@ -13,28 +16,46 @@ public class Tree extends JScrollPane {
     JTree tree;
     public Tree() {
         tree = new JTree();
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+        File rootFile = new File("C:\\");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootFile);
         DefaultTreeModel treeModel = new DefaultTreeModel(root);
 
-        File rootFile = new File("C:\\");
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(rootFile);
-        root.add(node);
-
         File[] files = rootFile.listFiles(directoryFilter);
-        addNodeFile(files,node);
+        addNodeFile(files,root);
 
         tree.setModel(treeModel);
-        tree.setRootVisible(false);
         tree.expandRow(0);
         setViewportView(tree);
-        //setVisibleRowCount(15);
+
+        tree.addTreeExpansionListener(treeExpansionListener);
     }
+
+    private TreeExpansionListener treeExpansionListener = new TreeExpansionListener() {
+        @Override
+        public void treeExpanded(TreeExpansionEvent event) {
+            DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+            String treePath = event.getPath().toString();
+            String filePath = treePath.replaceAll("\\[|\\]","");
+            filePath = filePath.replaceAll(", ", Matcher.quoteReplacement(File.separator));
+            File file = new File(filePath);
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode)event.getPath().getLastPathComponent();
+            addNodeFile(file.listFiles(directoryFilter),node);
+            model.reload(node);
+        }
+
+        @Override
+        public void treeCollapsed(TreeExpansionEvent event) {
+
+        }
+    };
 
     //하위디렉토리를 node에 넣고, 하위디렉토리 아래에 디렉토리가 있으면 임시 node를 추가해 준다.
     //나중에 클릭하면 하위디렉토리 출력할 수 있도록
     private void addNodeFile(File[] file, DefaultMutableTreeNode node) {
         if (file==null) return;
         if (file.length == 0) return;
+        //if (file.length == 1 && file[0].getName().equals(""))
+        node.removeAllChildren();
 
         for (int i=0;i<file.length;i++) {
             if (file[i].listFiles(directoryFilter)==null) continue;

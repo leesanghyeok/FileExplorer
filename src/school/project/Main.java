@@ -1,32 +1,40 @@
 package school.project;
 
+import school.project.UI.*;
 import school.project.UI.Frame;
-import school.project.UI.Tab;
-import school.project.UI.Table;
-import school.project.UI.Tree;
+import school.project.UI.Menu;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.*;
 
 public class Main extends JFrame {
     Frame mainFrame;
     Table table;
     Tree tree;
     Tab tab;
+    Menu menu;
 
-    public Main() throws HeadlessException {
+    public Main() {
+        initComponent();
+        settingComponent();
+        listenerComponent();
+    }
+
+    private void initComponent() {
         mainFrame = new Frame();
-
         tree = new Tree();
         table = new Table();
         tab = new Tab();
+        menu = new Menu();
+    }
 
+    private void settingComponent() {
+        mainFrame.setJMenuBar(menu);
         mainFrame.setLeftComponent(tree);
         mainFrame.setTopComponent(table);
         mainFrame.setBottomComponent(tab);
+    }
 
+    private void listenerComponent() {
 
     }
 

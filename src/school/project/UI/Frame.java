@@ -11,9 +11,9 @@ public class Frame extends JFrame {
     JSplitPane verticalPane;
     public Frame() {
         setSize(800,600);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Explorer");
-        setVisible(true);
 
         horizonPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         verticalPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
@@ -29,6 +29,13 @@ public class Frame extends JFrame {
 
         add(horizonPane);
 
+        setVisible(true);
+    }
+
+    @Override
+    public void setJMenuBar(JMenuBar menubar) {
+        super.setJMenuBar(menubar);
+        validate();
     }
 
     public void setLeftComponent(Component component){

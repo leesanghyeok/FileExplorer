@@ -8,7 +8,7 @@ import javax.swing.*;
 public class Menu extends JMenuBar {
     JMenu fileMenu;
     public Menu() {
-        fileMenu = new JMenu();
+        fileMenu = new JMenu("FIle");
         fileMenu.add(new JMenuItem("파일 열기"));
         fileMenu.add(new JMenuItem("파일 저장"));
 

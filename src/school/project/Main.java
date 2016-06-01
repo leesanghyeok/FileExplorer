@@ -6,6 +6,7 @@ import school.project.UI.Menu;
 import school.project.model.FileData;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,10 +40,15 @@ public class Main extends JFrame {
         mainFrame.setLeftComponent(tree);
         mainFrame.setTopComponent(table);
         mainFrame.setBottomComponent(tab);
+
+        //트리의 첫번가장 root 노드의 file들을 보여줘라.
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getTree().getModel().getRoot();
+        File[] files = new File(node.getUserObject().toString()).listFiles();
+        table.showFilesTable(files);
     }
 
     private void listenerComponent() {
-        tree.addMouseListener(setFileListListener);
+        tree.getTree().addMouseListener(setFileListListener);
     }
 
     private MouseAdapter setFileListListener = new MouseAdapter() {
@@ -50,20 +56,16 @@ public class Main extends JFrame {
         public void mouseClicked(MouseEvent e) {
             //더블클릭시 이상하게 클릭되는것 방지 하기위해 클릭 횟수 한번으로 고정
             if (e.getClickCount()!=1) return ;
-            TreePath treePath = tree.getPathForLocation(e.getX(), e.getY());
+            TreePath treePath = tree.getTree().getPathForLocation(e.getX(), e.getY());
             //node 이외의 장소 클릭하면 null
             if (treePath == null) return;
-
             String filePath = tree.treePathToString(treePath);
-            File file = new File(filePath);
-            FileData fileData = new FileData(file.isDirectory(),file.getName(),file.lastModified(),file.length());
-
-            System.out.println(fileData.getName());
-            System.out.println(fileData.getLastModified());
-            System.out.println(fileData.getSize());
-            System.out.println(fileData.getExt());
+            File[] files = new File(filePath).listFiles();
+            table.showFilesTable(files);
         }
     };
+
+
 
     public static void main(String args[]){
         new Main();

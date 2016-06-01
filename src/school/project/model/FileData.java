@@ -10,7 +10,7 @@ public class FileData {
     //파일이름 , 수정한 날짜, 파일유형, 크기
     private String name;
     private long lastModified;
-    private String ext;
+    private String type;
     private long size;
     private boolean isDirectory;
 
@@ -21,6 +21,11 @@ public class FileData {
         this.size = size;
     }
 
+    public String[] toStrings() {
+        String [] retStr = {getName(),getLastModified(), getType(),getSize()};
+        return retStr;
+    }
+
     public void setName(String name) {
         this.name = name;
         //디렉토리는 확장자 설정을 할 필요가 없다.
@@ -28,7 +33,7 @@ public class FileData {
 
         int pos = name.lastIndexOf( "." );
         String ext = name.substring( pos + 1 );
-        this.ext = ext;
+        this.type = ext;
     }
 
     public String getLastModified() {
@@ -41,10 +46,10 @@ public class FileData {
         return name;
     }
 
-    public String getExt() {
+    public String getType() {
         if (isDirectory)
             return "파일 폴더";
-        return ext + "파일";
+        return type + " 파일";
     }
 
     public String getSize() {

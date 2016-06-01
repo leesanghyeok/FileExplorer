@@ -33,12 +33,8 @@ public class Tree extends JScrollPane {
 
     }
 
-    public TreePath getPathForLocation(int x, int y) {
-        return tree.getPathForLocation(x,y);
-    }
-
-    public void addMouseListener(MouseListener mouseListener) {
-        tree.addMouseListener(mouseListener);
+    public JTree getTree() {
+        return tree;
     }
 
     private TreeExpansionListener treeExpansionListener = new TreeExpansionListener() {

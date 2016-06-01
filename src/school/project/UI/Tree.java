@@ -5,6 +5,8 @@ import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.regex.Matcher;
@@ -28,15 +30,22 @@ public class Tree extends JScrollPane {
         setViewportView(tree);
 
         tree.addTreeExpansionListener(treeExpansionListener);
+
+    }
+
+    public TreePath getPathForLocation(int x, int y) {
+        return tree.getPathForLocation(x,y);
+    }
+
+    public void addMouseListener(MouseListener mouseListener) {
+        tree.addMouseListener(mouseListener);
     }
 
     private TreeExpansionListener treeExpansionListener = new TreeExpansionListener() {
         @Override
         public void treeExpanded(TreeExpansionEvent event) {
             DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
-            String treePath = event.getPath().toString();
-            String filePath = treePath.replaceAll("\\[|\\]","");
-            filePath = filePath.replaceAll(", ", Matcher.quoteReplacement(File.separator));
+            String filePath = treePathToString(event.getPath());
             File file = new File(filePath);
             DefaultMutableTreeNode node = (DefaultMutableTreeNode)event.getPath().getLastPathComponent();
             addNodeFile(file.listFiles(directoryFilter),node);
@@ -48,6 +57,14 @@ public class Tree extends JScrollPane {
 
         }
     };
+
+
+
+    public String treePathToString(TreePath treePath) {
+        String filePath = treePath.toString().replaceAll("\\[|\\]","");
+        filePath = filePath.replaceAll(", ", Matcher.quoteReplacement(File.separator));
+        return filePath;
+    }
 
     //하위디렉토리를 node에 넣고, 하위디렉토리 아래에 디렉토리가 있으면 임시 node를 추가해 준다.
     //나중에 클릭하면 하위디렉토리 출력할 수 있도록

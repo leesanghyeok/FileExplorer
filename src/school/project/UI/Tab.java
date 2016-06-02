@@ -18,13 +18,19 @@ public class Tab extends JTabbedPane {
     }
 
     public void addTab(String title) {
+        int len = scrollPanesList.size();
+        for (int i=0;i<len;i++) {
+            if (scrollPanesList.get(i).getTitle().equals(title)) {
+                setSelectedIndex(i);
+                return ;
+            }
+        }
+        
         JTextArea textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
-
         TabComponent tabComponent = new TabComponent(title,scrollPane);
 
         scrollPanesList.add(tabComponent);
-
         add(tabComponent.getTitle(),tabComponent.getScrollPane());
     }
 

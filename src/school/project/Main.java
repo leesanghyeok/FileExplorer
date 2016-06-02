@@ -1,9 +1,7 @@
 package school.project;
 
+import school.project.Listener.FileOpenListener;
 import school.project.UI.*;
-import school.project.UI.Frame;
-import school.project.UI.Menu;
-import school.project.model.FileData;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -11,8 +9,6 @@ import javax.swing.tree.TreePath;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Main extends JFrame {
     Frame mainFrame;
@@ -48,10 +44,11 @@ public class Main extends JFrame {
     }
 
     private void listenerComponent() {
-        tree.getTree().addMouseListener(setFileListListener);
+        tree.getTree().addMouseListener(setFilesToTableListener);
+        table.getTable().addMouseListener(new FileOpenListener(table.getTable(),tree.getTree()));
     }
 
-    private MouseAdapter setFileListListener = new MouseAdapter() {
+    private MouseAdapter setFilesToTableListener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             //더블클릭시 이상하게 클릭되는것 방지 하기위해 클릭 횟수 한번으로 고정
@@ -59,6 +56,7 @@ public class Main extends JFrame {
             TreePath treePath = tree.getTree().getPathForLocation(e.getX(), e.getY());
             //node 이외의 장소 클릭하면 null
             if (treePath == null) return;
+            //table에 files 보여주기.
             String filePath = tree.treePathToString(treePath);
             File[] files = new File(filePath).listFiles();
             table.showFilesTable(files);

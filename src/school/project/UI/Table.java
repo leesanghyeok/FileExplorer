@@ -1,10 +1,9 @@
 package school.project.UI;
 
-import school.project.model.FileData;
+import school.project.DataModel.FileData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.File;
 
 /**
@@ -19,7 +18,7 @@ public class Table extends JScrollPane {
         String [][]rows = {{"이름","수정한 날짜","유형","크기"}};
 
         model = new DefaultTableModel(rows,cols);
-        //model.addcolumn
+        //DataModel.addcolumn
 
         table.setModel(model);
         setViewportView(table);
@@ -30,9 +29,10 @@ public class Table extends JScrollPane {
         Clear();
         int len = files.length;
         for (int i=0;i<len;i++) {
-            FileData fileData = new FileData(files[i].isDirectory(),files[i].getName(),files[i].lastModified(),files[i].length());
+            FileData fileData = new FileData(files[i].isDirectory(),files[i].getAbsolutePath(),files[i].lastModified(),files[i].length());
             model.addRow(fileData.toStrings());
         }
+
     }
 
     public void Clear() {
@@ -40,6 +40,10 @@ public class Table extends JScrollPane {
         for(int i = rows - 1; i >=0; i--) {
             model.removeRow(i);
         }
+    }
+
+    public JTable getTable() {
+        return table;
     }
 
     public DefaultTableModel getModel() {

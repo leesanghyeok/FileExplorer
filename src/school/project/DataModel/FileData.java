@@ -1,22 +1,25 @@
-package school.project.model;
+package school.project.DataModel;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
 
 /**
  * Created by forhack on 2016-06-01.
  */
 public class FileData {
     //파일이름 , 수정한 날짜, 파일유형, 크기
+    private String path;
     private String name;
     private long lastModified;
     private String type;
     private long size;
     private boolean isDirectory;
 
-    public FileData(boolean isDirectory, String name, long lastModified, long size) {
+    public FileData(boolean isDirectory, String path, long lastModified, long size) {
         this.isDirectory = isDirectory;
-        setName(name);
+        setName(path);
         this.lastModified = lastModified;
         this.size = size;
     }
@@ -26,8 +29,10 @@ public class FileData {
         return retStr;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String path) {
+        this.path = path;
+        String []fileNames = path.split(Matcher.quoteReplacement(File.separator));
+        this.name = fileNames[fileNames.length-1];
         //디렉토리는 확장자 설정을 할 필요가 없다.
         if (isDirectory) return;
 

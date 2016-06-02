@@ -4,6 +4,8 @@ import school.project.Listener.FileOpenListener;
 import school.project.UI.*;
 
 import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseAdapter;
@@ -44,16 +46,14 @@ public class Main extends JFrame {
     }
 
     private void listenerComponent() {
-        tree.getTree().addMouseListener(setFilesToTableListener);
+        tree.getTree().addTreeSelectionListener(setFilesToTableListener);
         table.getTable().addMouseListener(new FileOpenListener(table.getTable(),tree.getTree()));
     }
 
-    private MouseAdapter setFilesToTableListener = new MouseAdapter() {
+    private TreeSelectionListener setFilesToTableListener = new TreeSelectionListener() {
         @Override
-        public void mouseClicked(MouseEvent e) {
-            //더블클릭시 이상하게 클릭되는것 방지 하기위해 클릭 횟수 한번으로 고정
-            if (e.getClickCount()!=1) return ;
-            TreePath treePath = tree.getTree().getPathForLocation(e.getX(), e.getY());
+        public void valueChanged(TreeSelectionEvent e) {
+            TreePath treePath = e.getPath();
             //node 이외의 장소 클릭하면 null
             if (treePath == null) return;
             //table에 files 보여주기.
@@ -62,8 +62,6 @@ public class Main extends JFrame {
             table.showFilesTable(files);
         }
     };
-
-
 
     public static void main(String args[]){
         new Main();

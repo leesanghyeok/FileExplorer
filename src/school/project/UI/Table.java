@@ -1,6 +1,6 @@
 package school.project.UI;
 
-import school.project.DataModel.FileData;
+import school.project.Model.FileData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,6 +10,11 @@ import java.io.File;
  * Created by forhack on 2016-05-23.
  */
 public class Table extends JScrollPane {
+    public static int COLUMN_NAME = 0;
+    public static int COLUMN_LAST_MODIFIED = 1;
+    public static int COLUMN_TYPE = 2;
+    public static int COLUMN_SIZE = 3;
+
     JTable table;
     DefaultTableModel model;
     public Table() {
@@ -18,7 +23,8 @@ public class Table extends JScrollPane {
         String [][]rows = {{"이름","수정한 날짜","유형","크기"}};
 
         model = new DefaultTableModel(rows,cols);
-        //DataModel.addcolumn
+
+        //Model.addcolumn
 
         table.setModel(model);
         setViewportView(table);

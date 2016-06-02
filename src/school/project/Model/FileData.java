@@ -1,4 +1,4 @@
-package school.project.DataModel;
+package school.project.Model;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

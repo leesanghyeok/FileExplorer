@@ -2,6 +2,7 @@ package school.project;
 
 import school.project.Listener.FileOpenListener;
 import school.project.UI.*;
+import school.project.Util.FileUtils;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -43,11 +44,14 @@ public class Main extends JFrame {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getTree().getModel().getRoot();
         File[] files = new File(node.getUserObject().toString()).listFiles();
         table.showFilesTable(files);
+        tree.getTree().setSelectionRow(0);
     }
 
     private void listenerComponent() {
         tree.getTree().addTreeSelectionListener(setFilesToTableListener);
         table.getTable().addMouseListener(new FileOpenListener(table.getTable(),tree.getTree()));
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getTree().getLastSelectedPathComponent();
+        System.out.println(node.getPath().length);
     }
 
     private TreeSelectionListener setFilesToTableListener = new TreeSelectionListener() {
@@ -57,7 +61,7 @@ public class Main extends JFrame {
             //node 이외의 장소 클릭하면 null
             if (treePath == null) return;
             //table에 files 보여주기.
-            String filePath = tree.treePathToString(treePath);
+            String filePath = FileUtils.treePathToString(treePath);
             File[] files = new File(filePath).listFiles();
             table.showFilesTable(files);
         }

@@ -49,9 +49,7 @@ public class Main extends JFrame {
 
     private void listenerComponent() {
         tree.getTree().addTreeSelectionListener(setFilesToTableListener);
-        table.getTable().addMouseListener(new FileOpenListener(table.getTable(),tree.getTree()));
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getTree().getLastSelectedPathComponent();
-        System.out.println(node.getPath().length);
+        table.getTable().addMouseListener(new FileOpenListener(table.getTable(),tree.getTree(),tab));
     }
 
     private TreeSelectionListener setFilesToTableListener = new TreeSelectionListener() {

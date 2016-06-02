@@ -13,11 +13,11 @@ public class Tab extends JTabbedPane {
     ArrayList<TabComponent> scrollPanesList = new ArrayList<TabComponent>();
 
     public Tab() {
-        addTab("first");
-        addTab("second");
+        addTab("first", "qwqweqe");
+        addTab("second", "asdfasdf");
     }
 
-    public void addTab(String title) {
+    public void addTab(String title, String data) {
         int len = scrollPanesList.size();
         for (int i=0;i<len;i++) {
             if (scrollPanesList.get(i).getTitle().equals(title)) {
@@ -25,13 +25,15 @@ public class Tab extends JTabbedPane {
                 return ;
             }
         }
-        
-        JTextArea textArea = new JTextArea();
+
+        JTextArea textArea = new JTextArea(data);
         JScrollPane scrollPane = new JScrollPane(textArea);
         TabComponent tabComponent = new TabComponent(title,scrollPane);
 
         scrollPanesList.add(tabComponent);
-        add(tabComponent.getTitle(),tabComponent.getScrollPane());
+        int lastIndex = scrollPanesList.indexOf(tabComponent);
+        add(tabComponent.getTitle(),scrollPanesList.get(lastIndex).getScrollPane());
+        setSelectedIndex(lastIndex);
     }
 
 

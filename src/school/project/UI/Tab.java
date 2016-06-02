@@ -1,15 +1,33 @@
 package school.project.UI;
 
+import school.project.Model.TabComponent;
+
 import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by forhack on 2016-05-23.
  */
 public class Tab extends JTabbedPane {
+    ArrayList<TabComponent> scrollPanesList = new ArrayList<TabComponent>();
+
     public Tab() {
-        JPanel first = new JPanel();
-        JPanel second = new JPanel();
-        add("first",first);
-        add("second",second);
+        addTab("first");
+        addTab("second");
     }
+
+    public void addTab(String title) {
+        JTextArea textArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        TabComponent tabComponent = new TabComponent(title,scrollPane);
+
+        scrollPanesList.add(tabComponent);
+
+        add(tabComponent.getTitle(),tabComponent.getScrollPane());
+    }
+
+
+
 }

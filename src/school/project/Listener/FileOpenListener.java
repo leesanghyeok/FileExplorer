@@ -28,6 +28,7 @@ public class FileOpenListener extends MouseAdapter{
         String fileName = table.getModel().getValueAt(row, Table.COLUMN_NAME).toString();
         String fileAbsolutePath = fileParentPath + File.separator + fileName;
 
+        File file = new File(fileAbsolutePath);
         System.out.println(fileAbsolutePath);
     }
 }

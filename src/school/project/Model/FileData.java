@@ -10,16 +10,15 @@ import java.util.regex.Matcher;
  */
 public class FileData {
     //파일이름 , 수정한 날짜, 파일유형, 크기
-    private String path;
     private String name;
     private long lastModified;
     private String type;
     private long size;
     private boolean isDirectory;
 
-    public FileData(boolean isDirectory, String path, long lastModified, long size) {
+    public FileData(boolean isDirectory, String name, long lastModified, long size) {
         this.isDirectory = isDirectory;
-        setName(path);
+        setName(name);
         this.lastModified = lastModified;
         this.size = size;
     }
@@ -29,15 +28,13 @@ public class FileData {
         return retStr;
     }
 
-    public void setName(String path) {
-        this.path = path;
-        String []fileNames = path.split(Matcher.quoteReplacement(File.separator));
-        this.name = fileNames[fileNames.length-1];
+    public void setName(String name) {
+        this.name = name;
         //디렉토리는 확장자 설정을 할 필요가 없다.
         if (isDirectory) return;
 
-        int pos = name.lastIndexOf( "." );
-        String ext = name.substring( pos + 1 );
+        int pos = this.name.lastIndexOf( "." );
+        String ext = this.name.substring( pos + 1 );
         this.type = ext;
     }
 

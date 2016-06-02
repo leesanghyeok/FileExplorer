@@ -22,7 +22,12 @@ public class Table extends JScrollPane {
         String []cols = {"이름","수정한 날짜","유형","크기"};
         String [][]rows = {{"이름","수정한 날짜","유형","크기"}};
 
-        model = new DefaultTableModel(rows,cols);
+        model = new DefaultTableModel(rows, cols) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         //Model.addcolumn
 

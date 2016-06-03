@@ -1,5 +1,6 @@
 package school.project.UI;
 
+import school.project.ButtonTabComponent;
 import school.project.Model.TabComponent;
 
 import javax.swing.*;
@@ -17,6 +18,12 @@ public class Tab extends JTabbedPane {
         addTab("second", "asdfasdf");
     }
 
+    @Override
+    public void remove(int index) {
+        super.remove(index);
+        scrollPanesList.remove(index);
+    }
+
     public void addTab(String title, String data) {
         int len = scrollPanesList.size();
         for (int i=0;i<len;i++) {
@@ -29,10 +36,14 @@ public class Tab extends JTabbedPane {
         JTextArea textArea = new JTextArea(data);
         JScrollPane scrollPane = new JScrollPane(textArea);
         TabComponent tabComponent = new TabComponent(title,scrollPane);
+        ButtonTabComponent buttonTabComponent = new ButtonTabComponent(this);
 
         scrollPanesList.add(tabComponent);
         int lastIndex = scrollPanesList.indexOf(tabComponent);
         add(tabComponent.getTitle(),scrollPanesList.get(lastIndex).getScrollPane());
+        System.out.println(lastIndex);
+        setTabComponentAt(lastIndex,buttonTabComponent);
+
         setSelectedIndex(lastIndex);
     }
 

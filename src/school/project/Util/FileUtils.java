@@ -26,23 +26,23 @@ public class FileUtils {
     }
 
     public static String getFileData(String path) {
-        BufferedReader reader = null;
-        String fileData = "";
+        StringBuffer fileData = new StringBuffer();
         try {
-            reader = new BufferedReader(new FileReader(path));
-            while (true) {
-                String line = reader.readLine();
-                if (line == null) break;
-                fileData+=line+"\r\n"n;
+            FileInputStream fin = new FileInputStream(path);
+            InputStreamReader in = new InputStreamReader(fin, "UTF-8");
+            int c;
+            while ((c = in.read()) != -1) {
+                fileData.append((char)c);
             }
-            reader.close();
+            fin.close();
+            in.close();
         } catch (FileNotFoundException e) {
             e.getStackTrace();
         } catch (IOException e) {
             e.getStackTrace();
         }
 
-        return fileData;
+        return fileData.toString();
     }
 
 }

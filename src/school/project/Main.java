@@ -2,6 +2,7 @@ package school.project;
 
 import school.project.Listener.FileOpenListener;
 import school.project.Listener.FileSaveListener;
+import school.project.Listener.FindListener;
 import school.project.UI.*;
 import school.project.UI.Dialog.FindDialog;
 import school.project.UI.Frame;
@@ -16,7 +17,6 @@ import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileWriter;
 
 public class Main extends JFrame {
     Frame mainFrame;
@@ -65,7 +65,7 @@ public class Main extends JFrame {
         table.getTable().addMouseListener(fileOpenListener);
         menu.setFileOpenListener(fileOpenActionListener);
         menu.setFileSaveListener(fileSaveActionListener);
-        menu.setFindListener(findActionListener);
+        menu.setFindListener(new FindListener(table,tree));
     }
 
     private TreeSelectionListener setFilesToTableListener = new TreeSelectionListener() {
@@ -111,21 +111,6 @@ public class Main extends JFrame {
         }
     };
 
-    private ActionListener findActionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            FindDialog findDialog = new FindDialog();
-            findDialog.setVisible(true);
-            findDialog.addConfirmListener(searchConfirmActionListener);
-        }
-    };
-
-    private ActionListener searchConfirmActionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("hello world");
-        }
-    };
 
     public static void main(String args[]){
         new Main();

@@ -12,6 +12,7 @@ public class InfoDialog extends JDialog {
     public InfoDialog() {
         panel = new JPanel(new BorderLayout());
         textEncoding = new JLabel("본 프로그램은 UTF-8 문서만 정상적으로 열립니다.");
+
         setSize(300,100);
         setLocationRelativeTo(null);
         setTitle("도움말");

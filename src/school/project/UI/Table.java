@@ -5,6 +5,7 @@ import school.project.Model.FileData;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by forhack on 2016-05-23.
@@ -43,7 +44,16 @@ public class Table extends JScrollPane {
             FileData fileData = new FileData(files[i].isDirectory(),files[i].getName(),files[i].lastModified(),files[i].length());
             model.addRow(fileData.toStrings());
         }
+    }
 
+    public void showFilesTable(ArrayList<FileData> files) {
+        //기존 테이블 삭제
+        Clear();
+        int len = files.size();
+        for (int i=0;i<len;i++) {
+            FileData fileData = files.get(i);
+            model.addRow(fileData.toStrings());
+        }
     }
 
     public void Clear() {

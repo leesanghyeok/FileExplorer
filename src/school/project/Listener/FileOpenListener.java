@@ -1,5 +1,6 @@
 package school.project.Listener;
 
+import school.project.UI.Menu;
 import school.project.UI.Tab;
 import school.project.UI.Table;
 import school.project.Util.FileUtils;
@@ -14,10 +15,12 @@ public class FileOpenListener extends MouseAdapter{
     JTable table;
     JTree tree;
     Tab tab;
-    public FileOpenListener(JTable table, JTree tree, Tab tab) {
+    Menu menu;
+    public FileOpenListener(JTable table, JTree tree, Tab tab, Menu menu) {
         this.table = table;
         this.tree = tree;
         this.tab = tab;
+        this.menu = menu;
     }
 
     @Override
@@ -40,6 +43,7 @@ public class FileOpenListener extends MouseAdapter{
         if (file.isDirectory()) {
             JOptionPane.showMessageDialog(null, "텍스트 문서가 아닙니다.", "Message", JOptionPane.ERROR_MESSAGE);
         } else {
+            menu.addLinkMenu(file.getAbsolutePath());
             tab.addTab(file.getAbsolutePath(), fileData);
         }
     }

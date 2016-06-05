@@ -4,6 +4,8 @@ import school.project.Listener.FileOpenListener;
 import school.project.Listener.FileSaveListener;
 import school.project.Model.TabComponent;
 import school.project.UI.*;
+import school.project.UI.Frame;
+import school.project.UI.Menu;
 import school.project.Util.FileUtils;
 
 import javax.swing.*;
@@ -11,6 +13,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -39,9 +42,9 @@ public class Main extends JFrame {
         tree = new Tree();
         table = new Table();
         tab = new Tab();
-        menu = new Menu();
+        menu = new Menu(linkFileOpenListenr);
         fileChooser = new JFileChooser();
-        fileOpenListener = new FileOpenListener(table.getTable(),tree.getTree(),tab);
+        fileOpenListener = new FileOpenListener(table.getTable(),tree.getTree(),tab,menu);
         fileSaveListener = new FileSaveListener();
     }
 
@@ -96,6 +99,15 @@ public class Main extends JFrame {
             JScrollPane selectedComponent = (JScrollPane)tab.getSelectedComponent();
             JTextArea ja = (JTextArea)selectedComponent.getViewport().getView();
             fileSaveListener.fileSave(file,ja.getText());
+        }
+    };
+
+    private ActionListener linkFileOpenListenr = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JMenuItem item = (JMenuItem)e.getSource();
+            File file = new File(item.getText());
+            fileOpenListener.fileOpen(file);
         }
     };
 

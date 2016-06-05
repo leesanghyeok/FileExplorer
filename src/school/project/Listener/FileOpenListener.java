@@ -31,11 +31,18 @@ public class FileOpenListener extends MouseAdapter{
         if (col<0 && row<0) return;
 
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        String fileParentPath = FileUtils.treeNodesToString(node.getPath());
         String fileName = table.getModel().getValueAt(row, Table.COLUMN_NAME).toString();
-        String fileAbsolutePath = fileParentPath + File.separator + fileName;
-        File file = new File(fileAbsolutePath);
+        //검색했을 때는, 이름 부분이 absolutePath가 된다. 그래서 파일이 만들어지는지 체크하고 못만들면 평소대로 하자.
+        File file = new File(fileName);
+        if (!file.exists()) {
+            String fileParentPath = FileUtils.treeNodesToString(node.getPath());
+            String fileAbsolutePath = fileParentPath + File.separator + fileName;
+            file = new File(fileAbsolutePath);
+        }
         fileOpen(file);
+
+
+
     }
 
     public void fileOpen(File file){

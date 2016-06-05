@@ -47,8 +47,10 @@ public class FindListener implements ActionListener {
                 return;
             }
 
+            //기다려 메시지 띄우기
             WaitDialog waitDialog = new WaitDialog();
             waitDialog.setVisible(true);
+
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getTree().getLastSelectedPathComponent();
             String fileParentPath = FileUtils.treeNodesToString(node.getPath());
             searchFiles(new File(fileParentPath),searchWord, optionWord);

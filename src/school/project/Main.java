@@ -2,8 +2,8 @@ package school.project;
 
 import school.project.Listener.FileOpenListener;
 import school.project.Listener.FileSaveListener;
-import school.project.Model.TabComponent;
 import school.project.UI.*;
+import school.project.UI.Dialog.FindDialog;
 import school.project.UI.Frame;
 import school.project.UI.Menu;
 import school.project.Util.FileUtils;
@@ -13,7 +13,6 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -42,7 +41,7 @@ public class Main extends JFrame {
         tree = new Tree();
         table = new Table();
         tab = new Tab();
-        menu = new Menu(linkFileOpenListenr);
+        menu = new Menu(linkFileOpenActionListenr);
         fileChooser = new JFileChooser();
         fileOpenListener = new FileOpenListener(table.getTable(),tree.getTree(),tab,menu);
         fileSaveListener = new FileSaveListener();
@@ -66,6 +65,7 @@ public class Main extends JFrame {
         table.getTable().addMouseListener(fileOpenListener);
         menu.setFileOpenListener(fileOpenActionListener);
         menu.setFileSaveListener(fileSaveActionListener);
+        menu.setFindListener(findActionListener);
     }
 
     private TreeSelectionListener setFilesToTableListener = new TreeSelectionListener() {
@@ -102,12 +102,28 @@ public class Main extends JFrame {
         }
     };
 
-    private ActionListener linkFileOpenListenr = new ActionListener() {
+    private ActionListener linkFileOpenActionListenr = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             JMenuItem item = (JMenuItem)e.getSource();
             File file = new File(item.getText());
             fileOpenListener.fileOpen(file);
+        }
+    };
+
+    private ActionListener findActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            FindDialog findDialog = new FindDialog();
+            findDialog.setVisible(true);
+            findDialog.addConfirmListener(searchConfirmActionListener);
+        }
+    };
+
+    private ActionListener searchConfirmActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("hello world");
         }
     };
 

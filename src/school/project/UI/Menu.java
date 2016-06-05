@@ -16,10 +16,12 @@ public class Menu extends JMenuBar {
     private static final int LINK_INDEX = 3;
     JMenu fileMenu;
     JMenu helpMenu;
+    JMenu editMenu;
     JMenuItem fileOpenMenu;
     JMenuItem fileSaveMenu;
     JMenuItem fileExitMenu;
     JMenuItem helpInfoMenu;
+    JMenuItem editFindMenu;
 
     ActionListener linkFileOpenListener;
 
@@ -29,15 +31,21 @@ public class Menu extends JMenuBar {
         this.linkFileOpenListener = linkFileListener;
         fileMenu = new JMenu("FIle(F)");
         helpMenu = new JMenu("Help(H)");
+        editMenu = new JMenu("Edit(E)");
         fileOpenMenu = new JMenuItem("파일 열기");
         fileSaveMenu = new JMenuItem("파일 저장");
         fileExitMenu = new JMenuItem("끝내기");
         helpInfoMenu = new JMenuItem("정보");
+        editFindMenu = new JMenuItem("검색");
+
         menuItemList = new ArrayList<JMenuItem>();
 
         fileMenu.setMnemonic(KeyEvent.VK_F);
+        helpMenu.setMnemonic(KeyEvent.VK_H);
+        editMenu.setMnemonic(KeyEvent.VK_E);
         fileOpenMenu.setAccelerator(KeyStroke.getKeyStroke('O', Event.CTRL_MASK));
         fileSaveMenu.setAccelerator(KeyStroke.getKeyStroke('S', Event.CTRL_MASK));
+        editFindMenu.setAccelerator(KeyStroke.getKeyStroke('F', Event.CTRL_MASK));
 
         fileExitMenu.addActionListener(new ActionListener() {
             @Override
@@ -54,10 +62,14 @@ public class Menu extends JMenuBar {
         fileMenu.addSeparator();
         fileMenu.add(fileExitMenu);
 
+        editMenu.add(editFindMenu);
+
         helpMenu.add(helpInfoMenu);
 
         add(fileMenu);
+        add(editMenu);
         add(helpMenu);
+
     }
 
     public void addLinkMenu(String title) {
@@ -87,6 +99,10 @@ public class Menu extends JMenuBar {
 
     public void setFileSaveListener(ActionListener actionListener) {
         fileSaveMenu.addActionListener(actionListener);
+    }
+
+    public void setFindListener(ActionListener actionListener) {
+        editFindMenu.addActionListener(actionListener);
     }
 
     private ActionListener infoListener = new ActionListener() {

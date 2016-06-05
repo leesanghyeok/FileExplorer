@@ -1,6 +1,7 @@
 package school.project.Model;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -64,6 +65,8 @@ public class FileData {
         //파일 사이즈가 너무 작으면 최소 1을 리턴한다.
         if (retSize == 0)
             retSize = 1;
-        return retSize + "KB";
+
+        DecimalFormat df = new DecimalFormat("#,##0");
+        return df.format(retSize) + "KB";
     }
 }

@@ -1,5 +1,6 @@
 package school.project;
 
+import school.project.Listener.FileDataSortListener;
 import school.project.Listener.FileOpenListener;
 import school.project.Listener.FileSaveListener;
 import school.project.Listener.FindListener;
@@ -63,6 +64,7 @@ public class Main extends JFrame {
     private void listenerComponent() {
         tree.getTree().addTreeSelectionListener(setFilesToTableListener);
         table.getTable().addMouseListener(fileOpenListener);
+        table.addTableHeaderMouseListener(new FileDataSortListener(table));
         menu.setFileOpenListener(fileOpenActionListener);
         menu.setFileSaveListener(fileSaveActionListener);
         menu.setFindListener(new FindListener(table,tree));

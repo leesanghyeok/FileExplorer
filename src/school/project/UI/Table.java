@@ -4,6 +4,9 @@ import school.project.Model.FileData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -11,10 +14,10 @@ import java.util.ArrayList;
  * Created by forhack on 2016-05-23.
  */
 public class Table extends JScrollPane {
-    public static int COLUMN_NAME = 0;
-    public static int COLUMN_LAST_MODIFIED = 1;
-    public static int COLUMN_TYPE = 2;
-    public static int COLUMN_SIZE = 3;
+    public static final int COLUMN_NAME = 0;
+    public static final int COLUMN_LAST_MODIFIED = 1;
+    public static final int COLUMN_TYPE = 2;
+    public static final int COLUMN_SIZE = 3;
 
     JTable table;
     DefaultTableModel model;
@@ -23,6 +26,7 @@ public class Table extends JScrollPane {
         String []cols = {"이름","수정한 날짜","유형","크기"};
         String [][]rows = {{"이름","수정한 날짜","유형","크기"}};
 
+        //셀 수정금지.
         model = new DefaultTableModel(rows, cols) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -30,10 +34,12 @@ public class Table extends JScrollPane {
             }
         };
 
-        //Model.addcolumn
-
         table.setModel(model);
         setViewportView(table);
+    }
+
+    public void addTableHeaderMouseListener(MouseListener mouseListener) {
+        table.getTableHeader().addMouseListener(mouseListener);
     }
 
     public void showFilesTable(File[] files) {

@@ -36,11 +36,11 @@ public class FileOpenListener extends MouseAdapter{
     }
 
     public void fileOpen(File file){
-        String fileData = FileUtils.getFileData(file.getAbsolutePath());
+        String fileData = FileUtils.getFileData(file);
         if (file.isDirectory()) {
             JOptionPane.showMessageDialog(null, "텍스트 문서가 아닙니다.", "Message", JOptionPane.ERROR_MESSAGE);
         } else {
-            tab.addTab(file.getName(), fileData);
+            tab.addTab(file.getAbsolutePath(), fileData);
         }
     }
 }

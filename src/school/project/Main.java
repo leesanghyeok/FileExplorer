@@ -1,6 +1,8 @@
 package school.project;
 
 import school.project.Listener.FileOpenListener;
+import school.project.Listener.FileSaveListener;
+import school.project.Model.TabComponent;
 import school.project.UI.*;
 import school.project.Util.FileUtils;
 
@@ -12,6 +14,7 @@ import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 
 public class Main extends JFrame {
     Frame mainFrame;
@@ -23,6 +26,7 @@ public class Main extends JFrame {
     JFileChooser fileChooser;
 
     FileOpenListener fileOpenListener;
+    FileSaveListener fileSaveListener;
 
     public Main() {
         initComponent();
@@ -38,6 +42,7 @@ public class Main extends JFrame {
         menu = new Menu();
         fileChooser = new JFileChooser();
         fileOpenListener = new FileOpenListener(table.getTable(),tree.getTree(),tab);
+        fileSaveListener = new FileSaveListener();
     }
 
     private void settingComponent() {
@@ -86,9 +91,11 @@ public class Main extends JFrame {
     private ActionListener fileSaveActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (fileChooser.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                System.out.println(fileChooser.getSelectedFile());
-            }
+            String filePath = tab.getTitleAt(tab.getSelectedIndex());
+            File file = new File(filePath);
+            JScrollPane selectedComponent = (JScrollPane)tab.getSelectedComponent();
+            JTextArea ja = (JTextArea)selectedComponent.getViewport().getView();
+            fileSaveListener.fileSave(file,ja.getText());
         }
     };
 

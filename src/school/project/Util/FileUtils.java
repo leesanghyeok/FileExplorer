@@ -25,7 +25,7 @@ public class FileUtils {
         return filePath;
     }
 
-    public static String getFileData(String path) {
+    public static String getFileData(File path) {
         StringBuffer fileData = new StringBuffer();
         try {
             FileInputStream fin = new FileInputStream(path);
@@ -41,7 +41,6 @@ public class FileUtils {
         } catch (IOException e) {
             e.getStackTrace();
         }
-
         return fileData.toString();
     }
 

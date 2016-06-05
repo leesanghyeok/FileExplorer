@@ -9,9 +9,10 @@ import java.util.ArrayList;
  * Created by forhack on 2016-05-23.
  */
 public class Tab extends JTabbedPane {
-    ArrayList<TabComponent> scrollPanesList = new ArrayList<TabComponent>();
+    private ArrayList<TabComponent> scrollPanesList = new ArrayList<TabComponent>();
 
-    public Tab() {
+    public ArrayList<TabComponent> getScrollPanesList() {
+        return scrollPanesList;
     }
 
     @Override
@@ -22,6 +23,7 @@ public class Tab extends JTabbedPane {
 
     public void addTab(String title, String data) {
         int len = scrollPanesList.size();
+        //이미 있는 tab 체크하기
         for (int i=0;i<len;i++) {
             if (scrollPanesList.get(i).getTitle().equals(title)) {
                 setSelectedIndex(i);

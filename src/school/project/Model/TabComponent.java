@@ -15,8 +15,11 @@ public class TabComponent {
     }
 
     public JScrollPane getScrollPane() {
-
         return scrollPane;
+    }
+
+    public JTextArea getTextArea() {
+        return (JTextArea)scrollPane.getViewport().getView();
     }
 
     public String getTitle() {

@@ -1,10 +1,8 @@
 package school.project.UI;
 
-import school.project.ButtonTabComponent;
 import school.project.Model.TabComponent;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -14,8 +12,6 @@ public class Tab extends JTabbedPane {
     ArrayList<TabComponent> scrollPanesList = new ArrayList<TabComponent>();
 
     public Tab() {
-        addTab("first", "qwqweqe");
-        addTab("second", "asdfasdf");
     }
 
     @Override
@@ -41,9 +37,7 @@ public class Tab extends JTabbedPane {
         scrollPanesList.add(tabComponent);
         int lastIndex = scrollPanesList.indexOf(tabComponent);
         add(tabComponent.getTitle(),scrollPanesList.get(lastIndex).getScrollPane());
-        System.out.println(lastIndex);
         setTabComponentAt(lastIndex,buttonTabComponent);
-
         setSelectedIndex(lastIndex);
     }
 

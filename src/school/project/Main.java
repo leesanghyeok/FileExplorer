@@ -9,8 +9,8 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 public class Main extends JFrame {
@@ -19,6 +19,10 @@ public class Main extends JFrame {
     Tree tree;
     Tab tab;
     Menu menu;
+
+    JFileChooser fileChooser;
+
+    FileOpenListener fileOpenListener;
 
     public Main() {
         initComponent();
@@ -32,6 +36,8 @@ public class Main extends JFrame {
         table = new Table();
         tab = new Tab();
         menu = new Menu();
+        fileChooser = new JFileChooser();
+        fileOpenListener = new FileOpenListener(table.getTable(),tree.getTree(),tab);
     }
 
     private void settingComponent() {
@@ -49,7 +55,9 @@ public class Main extends JFrame {
 
     private void listenerComponent() {
         tree.getTree().addTreeSelectionListener(setFilesToTableListener);
-        table.getTable().addMouseListener(new FileOpenListener(table.getTable(),tree.getTree(),tab));
+        table.getTable().addMouseListener(fileOpenListener);
+        menu.setFileOpenListener(fileOpenActionListener);
+        menu.setFileSaveListener(fileSaveActionListener);
     }
 
     private TreeSelectionListener setFilesToTableListener = new TreeSelectionListener() {
@@ -62,6 +70,25 @@ public class Main extends JFrame {
             String filePath = FileUtils.treePathToString(treePath);
             File[] files = new File(filePath).listFiles();
             table.showFilesTable(files);
+        }
+    };
+
+    private ActionListener fileOpenActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (fileChooser.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                fileOpenListener.fileOpen(file);
+            }
+        }
+    };
+
+    private ActionListener fileSaveActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (fileChooser.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                System.out.println(fileChooser.getSelectedFile());
+            }
         }
     };
 

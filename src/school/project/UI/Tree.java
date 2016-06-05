@@ -1,5 +1,6 @@
 package school.project.UI;
 
+import school.project.UI.Filter.DirectoryFilter;
 import school.project.Util.FileUtils;
 
 import javax.swing.*;
@@ -19,8 +20,10 @@ import java.util.regex.Matcher;
  */
 public class Tree extends JScrollPane {
     JTree tree;
+    DirectoryFilter directoryFilter;
     public Tree() {
         tree = new JTree();
+        directoryFilter = new DirectoryFilter();
         File rootFile = new File("C:\\");
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootFile);
         DefaultTreeModel treeModel = new DefaultTreeModel(root);
@@ -95,10 +98,4 @@ public class Tree extends JScrollPane {
         }
     }
 
-    private FileFilter directoryFilter = new FileFilter() {
-        @Override
-        public boolean accept(File pathname) {
-            return pathname.isDirectory();
-        }
-    };
 }

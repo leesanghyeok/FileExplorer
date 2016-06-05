@@ -4,13 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 /**
  * Created by forhack on 2016-06-05.
  */
 public class FindDialog extends JDialog {
+    public static final String OPTION_ALL = "모두";
+    public static final String OPTION_DIRECTORY = "폴더";
+    public static final String OPTION_FILE = "파일";
+    public static final String OPTION_EXT = "확장자";
+    public static final String OPTION_SIZE = "용량";
     JPanel centerPanel;
     JPanel leftPanel;
     JPanel rightPanel;
@@ -23,7 +26,7 @@ public class FindDialog extends JDialog {
     JButton searchButton;
     JButton cancelButton;
 
-    String []options = {"폴더","파일","확장자","용량"};
+    String []options = {OPTION_ALL, OPTION_DIRECTORY,OPTION_FILE,OPTION_EXT,OPTION_SIZE};
 
     public FindDialog() {
         initComponent();

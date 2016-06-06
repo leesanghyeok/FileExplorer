@@ -6,10 +6,9 @@ import school.project.Util.FileUtils;
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.tree.*;
+import java.awt.*;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileFilter;
@@ -36,6 +35,7 @@ public class Tree extends JScrollPane {
         setViewportView(tree);
 
         tree.addTreeExpansionListener(treeExpansionListener);
+        tree.setCellRenderer(new TreeIconRenderer());
 
     }
 
@@ -95,6 +95,26 @@ public class Tree extends JScrollPane {
                 node.add(inNode);
                 addAllNodeFile(file[i].listFiles(directoryFilter),inNode);
             }
+        }
+    }
+
+    class TreeIconRenderer extends DefaultTreeCellRenderer {
+        private JLabel label;
+
+        public TreeIconRenderer() {
+            label = new JLabel();
+        }
+
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
+                                                      boolean leaf, int row, boolean hasFocus) {
+            TreePath treePath = tree.getPathForRow(row);
+            String fileAbsolutePath =  FileUtils.treePathToString(treePath);
+            File file = new File(fileAbsolutePath);
+            Icon ico = FileSystemView.getFileSystemView().getSystemIcon(file);
+            label.setIcon(ico);
+            label.setText(value.toString());
+            return label;
         }
     }
 

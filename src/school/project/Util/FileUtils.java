@@ -10,9 +10,13 @@ import java.util.regex.Matcher;
  */
 public class FileUtils {
     public static String treePathToString(TreePath treePath) {
-        String filePath = treePath.toString().replaceAll("\\[|\\]","");
-        filePath = filePath.replaceAll(", ", Matcher.quoteReplacement(File.separator));
-        return filePath;
+        try {
+            String filePath = treePath.toString().replaceAll("\\[|\\]","");
+            filePath = filePath.replaceAll(", ", Matcher.quoteReplacement(File.separator));
+            return filePath;
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     public static String treeNodesToString(TreeNode[] treeNodes) {

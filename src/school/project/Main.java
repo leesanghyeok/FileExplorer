@@ -5,7 +5,6 @@ import school.project.Listener.FileOpenListener;
 import school.project.Listener.FileSaveListener;
 import school.project.Listener.FindListener;
 import school.project.UI.*;
-import school.project.UI.Dialog.FindDialog;
 import school.project.UI.Frame;
 import school.project.UI.Menu;
 import school.project.Util.FileUtils;
@@ -15,21 +14,30 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
 public class Main extends JFrame {
+    private static final String TABLE_ICON = "TABLE_ICON";
+    private static final String TABLE_DETAIL = "TABLE_DETAIL";
+
     Frame mainFrame;
+    JPanel tableView;
     Table table;
+    IconTable iconTable;
     Tree tree;
     Tab tab;
     Menu menu;
+
 
     JFileChooser fileChooser;
 
     FileOpenListener fileOpenListener;
     FileSaveListener fileSaveListener;
+
+
 
     public Main() {
         initComponent();
@@ -40,7 +48,9 @@ public class Main extends JFrame {
     private void initComponent() {
         mainFrame = new Frame();
         tree = new Tree();
+        tableView = new JPanel(new CardLayout());
         table = new Table();
+        iconTable = new IconTable();
         tab = new Tab();
         menu = new Menu(linkFileOpenActionListenr);
         fileChooser = new JFileChooser();
@@ -51,8 +61,11 @@ public class Main extends JFrame {
     private void settingComponent() {
         mainFrame.setJMenuBar(menu);
         mainFrame.setLeftComponent(tree);
-        mainFrame.setTopComponent(table);
+        mainFrame.setTopComponent(tableView);
         mainFrame.setBottomComponent(tab);
+
+        tableView.add(table,TABLE_DETAIL);
+        tableView.add(iconTable,TABLE_ICON);
 
         //트리의 첫번가장 root 노드의 file들을 보여줘라.
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getTree().getModel().getRoot();
@@ -68,6 +81,8 @@ public class Main extends JFrame {
         menu.setFileOpenListener(fileOpenActionListener);
         menu.setFileSaveListener(fileSaveActionListener);
         menu.setFindListener(new FindListener(table,tree));
+        menu.setEditDetailListener(editDetailActionListener);
+        menu.setEditIconListener(editIconActionListener);
     }
 
     private TreeSelectionListener setFilesToTableListener = new TreeSelectionListener() {
@@ -113,6 +128,21 @@ public class Main extends JFrame {
         }
     };
 
+    private ActionListener editDetailActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CardLayout cardLayout = (CardLayout) tableView.getLayout();
+            cardLayout.show(tableView, TABLE_DETAIL);
+        }
+    };
+
+    private ActionListener editIconActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CardLayout cardLayout = (CardLayout) tableView.getLayout();
+            cardLayout.show(tableView, TABLE_ICON);
+        }
+    };
 
     public static void main(String args[]){
         new Main();

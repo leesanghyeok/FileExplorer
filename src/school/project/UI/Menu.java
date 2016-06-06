@@ -22,6 +22,8 @@ public class Menu extends JMenuBar {
     JMenuItem fileExitMenu;
     JMenuItem helpInfoMenu;
     JMenuItem editFindMenu;
+    JMenuItem editDetailMenu;
+    JMenuItem editIconMenu;
 
     ActionListener linkFileOpenListener;
 
@@ -37,6 +39,8 @@ public class Menu extends JMenuBar {
         fileExitMenu = new JMenuItem("끝내기");
         helpInfoMenu = new JMenuItem("정보");
         editFindMenu = new JMenuItem("검색");
+        editIconMenu = new JMenuItem("미리보기");
+        editDetailMenu = new JMenuItem("자세히");
 
         menuItemList = new ArrayList<JMenuItem>();
 
@@ -46,6 +50,8 @@ public class Menu extends JMenuBar {
         fileOpenMenu.setAccelerator(KeyStroke.getKeyStroke('O', Event.CTRL_MASK));
         fileSaveMenu.setAccelerator(KeyStroke.getKeyStroke('S', Event.CTRL_MASK));
         editFindMenu.setAccelerator(KeyStroke.getKeyStroke('F', Event.CTRL_MASK));
+        editDetailMenu.setAccelerator(KeyStroke.getKeyStroke('P', Event.CTRL_MASK));
+        editIconMenu.setAccelerator(KeyStroke.getKeyStroke('I', Event.CTRL_MASK));
 
         fileExitMenu.addActionListener(new ActionListener() {
             @Override
@@ -55,7 +61,6 @@ public class Menu extends JMenuBar {
         });
         helpInfoMenu.addActionListener(infoListener);
 
-
         fileMenu.add(fileOpenMenu);
         fileMenu.add(fileSaveMenu);
         fileMenu.addSeparator();
@@ -63,6 +68,9 @@ public class Menu extends JMenuBar {
         fileMenu.add(fileExitMenu);
 
         editMenu.add(editFindMenu);
+        editMenu.addSeparator();
+        editMenu.add(editDetailMenu);
+        editMenu.add(editIconMenu);
 
         helpMenu.add(helpInfoMenu);
 
@@ -93,6 +101,12 @@ public class Menu extends JMenuBar {
         menuItemList.remove(index);
     }
 
+    public void setEditDetailListener(ActionListener actionListener) {
+        editDetailMenu.addActionListener(actionListener);
+    }
+    public void setEditIconListener(ActionListener actionListener) {
+        editIconMenu.addActionListener(actionListener);
+    }
     public void setFileOpenListener(ActionListener actionListener) {
         fileOpenMenu.addActionListener(actionListener);
     }

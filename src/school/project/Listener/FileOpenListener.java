@@ -49,13 +49,14 @@ public class FileOpenListener extends MouseAdapter{
 
     private String getFileName(MouseEvent e) {
         String fileName = "";
+        System.out.println(e.getX() +" "+ e.getY());
         if (e.getSource() instanceof JTable) {
             int col = table.columnAtPoint(e.getPoint());
             int row = table.rowAtPoint(e.getPoint());
             if (col < 0 && row < 0) return "";
             fileName = table.getModel().getValueAt(row, Table.COLUMN_NAME).toString();
         } else if (e.getSource() instanceof FileIcon) {
-            JLabel label = (JLabel)iconTable.getComponentAt(e.getPoint());
+            FileIcon label = (FileIcon)e.getSource();
             fileName = label.getText();
         } else {
             System.out.println("asddddddf");

@@ -33,7 +33,8 @@ public class FileUtils {
         StringBuffer fileData = new StringBuffer();
         try {
             FileInputStream fin = new FileInputStream(path);
-            InputStreamReader in = new InputStreamReader(fin, "UTF-8");
+            BufferedInputStream bin = new BufferedInputStream(fin);
+            InputStreamReader in = new InputStreamReader(bin, "UTF-8");
             int c;
             while ((c = in.read()) != -1) {
                 fileData.append((char)c);

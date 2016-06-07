@@ -1,4 +1,4 @@
-package school.project.UI;
+package school.project.UI.FilePanel;
 
 import school.project.Model.FileData;
 

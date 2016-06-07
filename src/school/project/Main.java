@@ -5,6 +5,8 @@ import school.project.Listener.FileOpenListener;
 import school.project.Listener.FileSaveListener;
 import school.project.Listener.FindListener;
 import school.project.UI.*;
+import school.project.UI.FilePanel.IconTable;
+import school.project.UI.FilePanel.Table;
 import school.project.UI.Frame;
 import school.project.UI.Menu;
 import school.project.Util.FileUtils;

@@ -3,7 +3,7 @@ package school.project.Listener;
 import school.project.Model.FileData;
 import school.project.UI.Dialog.FindDialog;
 import school.project.UI.Dialog.WaitDialog;
-import school.project.UI.Table;
+import school.project.UI.FilePanel.Table;
 import school.project.UI.Tree;
 import school.project.Util.FileUtils;
 

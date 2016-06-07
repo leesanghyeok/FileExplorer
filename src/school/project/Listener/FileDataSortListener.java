@@ -1,13 +1,12 @@
 package school.project.Listener;
 
 import school.project.Model.FileData;
-import school.project.UI.Table;
+import school.project.UI.FilePanel.Table;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 

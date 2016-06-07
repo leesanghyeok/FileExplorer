@@ -2,7 +2,7 @@ package school.project.Listener;
 
 import school.project.UI.Menu;
 import school.project.UI.Tab;
-import school.project.UI.Table;
+import school.project.UI.FilePanel.Table;
 import school.project.Util.FileUtils;
 
 import javax.swing.*;

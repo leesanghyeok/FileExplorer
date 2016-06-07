@@ -11,10 +11,6 @@ import java.util.ArrayList;
 public class Tab extends JTabbedPane {
     private ArrayList<TabComponent> scrollPanesList = new ArrayList<TabComponent>();
 
-    public ArrayList<TabComponent> getScrollPanesList() {
-        return scrollPanesList;
-    }
-
     @Override
     public void remove(int index) {
         super.remove(index);

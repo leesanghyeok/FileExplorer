@@ -1,5 +1,6 @@
 package school.project.UI.FilePanel;
 
+import school.project.Listener.FileDataSortListener;
 import school.project.Model.FileData;
 
 import javax.swing.*;
@@ -34,14 +35,11 @@ public class Table extends JScrollPane {
             }
         };
 
+        table.getTableHeader().addMouseListener(new FileDataSortListener(this));
+
         table.setModel(model);
         setViewportView(table);
     }
-
-    public void addTableHeaderMouseListener(MouseListener mouseListener) {
-        table.getTableHeader().addMouseListener(mouseListener);
-    }
-
     public void showFilesTable(File[] files) {
         //기존 테이블 삭제
         Clear();

@@ -1,12 +1,13 @@
 package school.project.UI.FilePanel;
 
 import school.project.Model.FileData;
-import sun.awt.shell.ShellFolder;
+import school.project.UI.WrapLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Created by forhack on 2016-06-06.
@@ -14,31 +15,47 @@ import java.io.FileNotFoundException;
 public class IconTable extends JScrollPane{
     JPanel mainPanel;
     public IconTable() {
-        mainPanel = new JPanel(new FlowLayout());
+        mainPanel = new JPanel(new WrapLayout(FlowLayout.LEFT));
+        mainPanel.setBackground(Color.white);
         setViewportView(mainPanel);
 
-        File f = new File("C:\\새 폴더");
-        showFiles(f.listFiles());
-
     }
 
-    public void addFile(FileData fileData) {
-        FileIcon laal = new FileIcon(fileData.getName(), fileData.getIcon());
-        mainPanel.add(laal);
+    @Override
+    public Component getComponentAt(int x, int y) {
+        return mainPanel.getComponentAt(x, y);
     }
 
-    public void showFiles(File[] files) {
+    @Override
+    public Component getComponentAt(Point p) {
+        return mainPanel.getComponentAt(p);
+    }
+
+    public void addFile(FileData fileData, MouseListener mouseAdapter) {
+        FileIcon fileIcon = new FileIcon(fileData.getName(), fileData.getIcon());
+        fileIcon.addMouseListener(mouseAdapter);
+        mainPanel.add(fileIcon);
+    }
+
+    public void showFiles(File[] files, MouseListener mouseAdapter) {
         //기존 테이블 삭제
         Clear();
         int len = files.length;
         for (int i=0;i<len;i++) {
             FileData fileData = new FileData(files[i].isDirectory(), files[i].getAbsolutePath(),
                     files[i].getName(),files[i].lastModified(),files[i].length());
-            addFile(fileData);
+            addFile(fileData, mouseAdapter);
         }
+        rePaint();
     }
 
     public void Clear() {
         mainPanel.removeAll();
+        rePaint();
+    }
+
+    private void rePaint() {
+        mainPanel.revalidate();
+        mainPanel.repaint();   // This is required in some cases
     }
 }

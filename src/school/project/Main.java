@@ -33,13 +33,10 @@ public class Main extends JFrame {
     Tab tab;
     Menu menu;
 
-
     JFileChooser fileChooser;
 
     FileOpenListener fileOpenListener;
     FileSaveListener fileSaveListener;
-
-
 
     public Main() {
         initComponent();
@@ -56,7 +53,7 @@ public class Main extends JFrame {
         tab = new Tab();
         menu = new Menu(linkFileOpenActionListenr);
         fileChooser = new JFileChooser();
-        fileOpenListener = new FileOpenListener(table.getTable(),tree.getTree(),tab,menu);
+        fileOpenListener = new FileOpenListener(table.getTable(),tree.getTree(),tab,menu,iconTable);
         fileSaveListener = new FileSaveListener();
     }
 
@@ -73,15 +70,16 @@ public class Main extends JFrame {
         //트리의 첫번가장 root 노드의 file들을 보여줘라.
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getTree().getModel().getRoot();
         File[] files = new File(node.getUserObject().toString()).listFiles();
+
         table.showFilesTable(files);
-        //iconTable.showFiles(files);
+        iconTable.showFiles(files, fileOpenListener);
+
         tree.getTree().setSelectionRow(0);
     }
 
     private void listenerComponent() {
         tree.getTree().addTreeSelectionListener(setFilesToTableListener);
         table.getTable().addMouseListener(fileOpenListener);
-        table.addTableHeaderMouseListener(new FileDataSortListener(table));
         menu.setFileOpenListener(fileOpenActionListener);
         menu.setFileSaveListener(fileSaveActionListener);
         menu.setFindListener(new FindListener(table,tree));
@@ -98,7 +96,9 @@ public class Main extends JFrame {
             //table에 files 보여주기.
             String filePath = FileUtils.treePathToString(treePath);
             File[] files = new File(filePath).listFiles();
+
             table.showFilesTable(files);
+            iconTable.showFiles(files, fileOpenListener);
         }
     };
 

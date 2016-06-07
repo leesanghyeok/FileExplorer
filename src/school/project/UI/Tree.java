@@ -112,8 +112,13 @@ public class Tree extends JScrollPane {
             String fileAbsolutePath =  FileUtils.treePathToString(treePath);
             File file = new File(fileAbsolutePath);
             Icon ico = FileSystemView.getFileSystemView().getSystemIcon(file);
+            label.setOpaque(true);
             label.setIcon(ico);
             label.setText(value.toString());
+            if (selected)
+                label.setBackground(Color.cyan);
+            else
+                label.setBackground(Color.white);
             return label;
         }
     }

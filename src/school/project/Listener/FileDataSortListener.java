@@ -15,7 +15,7 @@ import java.util.Comparator;
  */
 public class FileDataSortListener extends MouseAdapter {
     Table table;
-    ArrayList<FileData> fileDataLists;
+    private ArrayList<FileData> fileDataLists;
 
     int nameSortFlag;
     int lastModifiedSortFlag;

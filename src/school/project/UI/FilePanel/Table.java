@@ -47,7 +47,7 @@ public class Table extends JScrollPane {
         Clear();
         int len = files.length;
         for (int i=0;i<len;i++) {
-            FileData fileData = new FileData(files[i].isDirectory(),files[i].getName(),files[i].lastModified(),files[i].length());
+            FileData fileData = new FileData(files[i].isDirectory(), files[i].getAbsolutePath(),files[i].getName(),files[i].lastModified(),files[i].length());
             model.addRow(fileData.toStrings());
         }
     }

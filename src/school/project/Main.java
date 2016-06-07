@@ -66,13 +66,15 @@ public class Main extends JFrame {
         mainFrame.setTopComponent(tableView);
         mainFrame.setBottomComponent(tab);
 
-        tableView.add(table,TABLE_DETAIL);
         tableView.add(iconTable,TABLE_ICON);
+        tableView.add(table,TABLE_DETAIL);
+
 
         //트리의 첫번가장 root 노드의 file들을 보여줘라.
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getTree().getModel().getRoot();
         File[] files = new File(node.getUserObject().toString()).listFiles();
         table.showFilesTable(files);
+        //iconTable.showFiles(files);
         tree.getTree().setSelectionRow(0);
     }
 

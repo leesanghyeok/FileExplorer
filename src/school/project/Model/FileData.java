@@ -1,6 +1,10 @@
 package school.project.Model;
 
+import sun.awt.shell.ShellFolder;
+
+import javax.swing.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,14 +19,16 @@ public class FileData {
     private String lastModified;
     private String type;
     private String size;
+    private Icon icon;
     private boolean isDirectory;
 
     private String directoryStr = "파일 폴더";
-    public FileData(boolean isDirectory, String name, long lastModified, long size) {
+    public FileData(boolean isDirectory, String filePath, String name, long lastModified, long size) {
         this.isDirectory = isDirectory;
         setName(name);
         setLastModified(lastModified);
         setSize(size);
+        setIcon(filePath);
     }
 
     public FileData(String name, String lastModified, String type, String size) {
@@ -106,5 +112,17 @@ public class FileData {
         return size;
     }
 
+    public void setIcon(String filePath) {
+        try {
+            ShellFolder sf = ShellFolder.getShellFolder(new File(filePath));
+            Icon ico = new ImageIcon(sf.getIcon(true));
+            this.icon = ico;
+        } catch (FileNotFoundException e) {
+            e.getStackTrace();
+        }
+    }
 
+    public Icon getIcon() {
+        return icon;
+    }
 }

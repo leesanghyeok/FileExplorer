@@ -105,7 +105,7 @@ public class FindListener implements ActionListener {
 
     private void addFileToList(File file, String keyWord, String optionWord) {
         if (doFilter(file,optionWord,keyWord)) {
-            FileData fileData = new FileData(file.isDirectory(),file.getAbsolutePath(),file.lastModified(),file.length());
+            FileData fileData = new FileData(file.isDirectory(),file.getAbsolutePath(), file.getAbsolutePath(),file.lastModified(),file.length());
             fileDataList.add(fileData);
         }
     }

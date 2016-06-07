@@ -63,9 +63,8 @@ public class Main extends JFrame {
         mainFrame.setTopComponent(tableView);
         mainFrame.setBottomComponent(tab);
 
-        tableView.add(iconTable,TABLE_ICON);
         tableView.add(table,TABLE_DETAIL);
-
+        tableView.add(iconTable,TABLE_ICON);
 
         //트리의 첫번가장 root 노드의 file들을 보여줘라.
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getTree().getModel().getRoot();

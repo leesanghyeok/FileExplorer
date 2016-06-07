@@ -3,6 +3,7 @@ package school.project.Listener;
 import school.project.Model.FileData;
 import school.project.UI.Dialog.FindDialog;
 import school.project.UI.Dialog.WaitDialog;
+import school.project.UI.FilePanel.IconTable;
 import school.project.UI.FilePanel.Table;
 import school.project.UI.Tree;
 import school.project.Util.FileUtils;
@@ -20,13 +21,18 @@ import java.util.ArrayList;
 public class FindListener implements ActionListener {
     FindDialog findDialog;
     Table table;
+    IconTable iconTable;
     Tree tree;
+
+    FileOpenListener fileOpenListener;
 
     ArrayList<FileData> fileDataList;
 
-    public FindListener(Table table, Tree tree) {
+    public FindListener(Table table, IconTable iconTable, Tree tree, FileOpenListener fileOpenListener) {
         this.table = table;
+        this.iconTable = iconTable;
         this.tree = tree;
+        this.fileOpenListener = fileOpenListener;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -56,6 +62,7 @@ public class FindListener implements ActionListener {
             searchFiles(new File(fileParentPath),searchWord, optionWord);
 
             table.showFilesTable(fileDataList);
+            iconTable.showFiles(fileDataList,fileOpenListener);
             waitDialog.dispose();
             findDialog.dispose();
         }

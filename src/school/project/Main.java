@@ -82,7 +82,7 @@ public class Main extends JFrame {
         table.getTable().addMouseListener(fileOpenListener);
         menu.setFileOpenListener(fileOpenActionListener);
         menu.setFileSaveListener(fileSaveActionListener);
-        menu.setFindListener(new FindListener(table,tree));
+        menu.setFindListener(new FindListener(table,iconTable,tree,fileOpenListener));
         menu.setEditDetailListener(editDetailActionListener);
         menu.setEditIconListener(editIconActionListener);
     }
